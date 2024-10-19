@@ -5,7 +5,9 @@
     tools:context=".TasksFragment"
 >
     <data>
-
+        <variable
+            name="viewModel"
+            type="com.hfad.tasks.TasksViewModel" />
     </data>
 
     <LinearLayout
@@ -19,6 +21,7 @@
             android:layout_height="wrap_content"
             android:inputType="text"
             android:hint="Enter a task name"
+            android:text="@={viewModel.newTaskName}"
         />
 
         <Button
@@ -27,6 +30,7 @@
             android:layout_height="wrap_content"
             android:layout_gravity="center"
             android:text="Save Task"
+            android:onClick="@{() -> viewModel.addTask()}"
         />
 
         <TextView
