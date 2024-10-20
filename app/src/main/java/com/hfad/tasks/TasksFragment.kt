@@ -26,10 +26,10 @@ class TasksFragment : Fragment() {
         val dao = TaskDatabase.getInstance(application).taskDao
 
         // Получение модели представления
-//        val viewModelFactory = TasksViewModelFactory(dao)
-//        val viewModel = ViewModelProvider(this, viewModelFactory).get(TasksViewModel::class.java)
+        val viewModelFactory = TasksViewModelFactory(dao)
+        val viewModel = ViewModelProvider(this, viewModelFactory).get(TasksViewModel::class.java)
 
-//        binding.viewModel = viewModel
+        binding.viewModel = viewModel
 
         return view
     }
