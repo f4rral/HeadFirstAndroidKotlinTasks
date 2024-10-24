@@ -6,19 +6,11 @@ import android.view.ViewGroup
 import android.widget.CheckBox
 import android.widget.TextView
 import androidx.cardview.widget.CardView
+import androidx.recyclerview.widget.ListAdapter
 import androidx.recyclerview.widget.RecyclerView
 
 
-class TaskItemAdapter : RecyclerView.Adapter<TaskItemAdapter.TaskItemViewHolder>() {
-
-    var data = listOf<Task>()
-        set(value) {
-            field = value
-            notifyDataSetChanged()
-        }
-
-    // Возвращает общее количество элементов списка
-    override fun getItemCount() = data.size
+class TaskItemAdapter : ListAdapter<Task, TaskItemAdapter.TaskItemViewHolder>(TaskDiffItemCallback()) {
 
     // Создаёт новый объект ViewHolder всякий раз, когда RecyclerView нуждается в этом.
     // Это тот момент, когда создаётся layout строки списка, передается объекту ViewHolder,
@@ -34,7 +26,7 @@ class TaskItemAdapter : RecyclerView.Adapter<TaskItemAdapter.TaskItemViewHolder>
     override fun onBindViewHolder(holder: TaskItemViewHolder, position: Int) {
         Log.i("MyLog", "onBindViewHolder")
 
-        val item = data[position]
+        val item = getItem(position)
         holder.bind(item)
     }
 
