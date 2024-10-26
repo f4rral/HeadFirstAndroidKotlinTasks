@@ -8,7 +8,8 @@ import androidx.recyclerview.widget.RecyclerView
 import com.hfad.tasks.databinding.TaskItemBinding
 
 
-class TaskItemAdapter : ListAdapter<Task, TaskItemAdapter.TaskItemViewHolder>(TaskDiffItemCallback()) {
+class TaskItemAdapter(val clickListener: (taskId: Long) -> Unit)
+    : ListAdapter<Task, TaskItemAdapter.TaskItemViewHolder>(TaskDiffItemCallback()) {
 
     // Создаёт новый объект ViewHolder всякий раз, когда RecyclerView нуждается в этом.
     // Это тот момент, когда создаётся layout строки списка, передается объекту ViewHolder,
@@ -25,7 +26,7 @@ class TaskItemAdapter : ListAdapter<Task, TaskItemAdapter.TaskItemViewHolder>(Ta
         Log.i("MyLog", "onBindViewHolder")
 
         val item = getItem(position)
-        holder.bind(item)
+        holder.bind(item, clickListener)
     }
 
     // Держатель представления
@@ -41,10 +42,11 @@ class TaskItemAdapter : ListAdapter<Task, TaskItemAdapter.TaskItemViewHolder>(Ta
             }
         }
 
-        fun bind(item: Task) {
+        fun bind(item: Task, clickListener: (taskId: Long) -> Unit) {
             Log.i("MyLog", "TaskItemViewHolder bind")
 
             binding.task = item
+            binding.root.setOnClickListener {clickListener(item.taskId)}
         }
     }
 }
